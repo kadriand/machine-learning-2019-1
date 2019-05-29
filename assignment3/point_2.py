@@ -10,11 +10,6 @@ print(f"Data shape: {digits.data.shape}")
 training_fraction = 0.7
 
 
-# plt.gray()
-# plt.matshow(digits.images[0])
-# plt.show()
-
-
 def normalize_b():
     digits_mean_zero = digits_data - digits_data.mean()
     sum_digits_sq = np.multiply(digits_mean_zero, digits_mean_zero).sum()
@@ -48,13 +43,28 @@ def optimal_C_c(complexities_C, digit_1, digit_2):
     digits_idxs = [i for i in range(len(digits_filtered))]
     random.shuffle(digits_idxs)
     samples_size = int(len(digits_idxs) * training_fraction)
+
     digits_training = digits_filtered[digits_idxs[0:samples_size]]
     digits_training_classes = digits_filtered_classes[digits_idxs[0:samples_size]]
     digits_test = digits_filtered[digits_idxs[samples_size - 1:len(digits_filtered)]]
     digits_test_classes = digits_filtered_classes[digits_idxs[samples_size - 1:len(digits_filtered)]]
+
     training_errors, test_errors = classify_c(digits_training, digits_training_classes, digits_test, digits_test_classes, complexities_C)
-    optimal_idx = test_errors.argmin()
+    optimal_idx = (test_errors + training_errors).argmin()
     return optimal_idx, test_errors, training_errors, digits_idxs
+
+
+def plot_regularization_parameters_c(complexities_C, optimal_C, test_errors, training_errors, title=f"Cross Validation Plot"):
+    plt.plot(complexities_C, training_errors, label='Training set')
+    plt.plot(complexities_C, test_errors, label='Test set')
+    max_val = test_errors.max() if test_errors.max() > training_errors.max() else training_errors.max()
+    plt.plot([optimal_C, optimal_C], [0, max_val], linestyle=':', label=f'Optimal C: 2^{int(np.log2(optimal_C))}')
+    plt.xlabel('Regularization parameter')
+    plt.ylabel('Error')
+    plt.title(title)
+    plt.xscale('log', basex=2)
+    plt.legend()
+    plt.show()
 
 
 def weights_vector_d(digits_idxs, optimal_C, digit_1, digit_2):
@@ -68,19 +78,6 @@ def weights_vector_d(digits_idxs, optimal_C, digit_1, digit_2):
     return weights_vector
 
 
-def plot_regularization_parameters_c(complexities_C, optimal_C, test_errors, training_errors, title=f"Cross Validation Plot"):
-    plt.plot(complexities_C, training_errors, label='Training set')
-    plt.plot(complexities_C, test_errors, label='Test set')
-    max_val = test_errors.max() if test_errors.max() > training_errors.max() else training_errors.max()
-    plt.plot([optimal_C, optimal_C], [0, max_val], linestyle=':', label=f'Optimal for test set: 2^{int(np.log2(optimal_C))}')
-    plt.xlabel('Regularization parameter')
-    plt.ylabel('Error')
-    plt.title(title)
-    plt.xscale('log', basex=2)
-    plt.legend()
-    plt.show()
-
-
 def digits_classifier_f(complexities_C, digit_1, digit_2):
     print(f"Digits {digit_1} and {digit_2}")
     optimal_idx, test_errors, training_errors, digits_idxs = optimal_C_c(complexities_C, digit_1, digit_2)
@@ -92,6 +89,12 @@ def digits_classifier_f(complexities_C, digit_1, digit_2):
     weights_mesh = weights_vector.reshape((8, 8))
     plt.pcolor(weights_mesh, cmap='bwr')
     plt.title(f"Color map. Digits {digit_1} and {digit_2}")
+    plt.show()
+
+
+def point_a():
+    plt.gray()
+    plt.matshow(digits.images[0])
     plt.show()
 
 
@@ -145,6 +148,7 @@ def point_f():
     digits_classifier_f(complexities_C, 4, 9)
 
 
+point_a()
 point_b()
 point_c()
 point_d()
