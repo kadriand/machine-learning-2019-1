@@ -14,8 +14,8 @@ with open(spanish_words_file, 'r') as words_file:
 with open(french_words_file, 'r') as words_file:
     french_words = [line.replace('\n', '') for line in words_file.readlines()]
 
-spanish_words = spanish_words[0:100]
-french_words = french_words[0:100]
+# spanish_words = spanish_words[0:100]
+# french_words = french_words[0:100]
 
 words_data = np.append(spanish_words, french_words)
 words_classes = np.append(np.full(len(spanish_words), 'S'), np.full(len(french_words), 'F'))
@@ -23,20 +23,24 @@ words_classes = np.append(np.full(len(spanish_words), 'S'), np.full(len(french_w
 training_fraction = 0.7
 words_idxs = [i for i in range(len(words_data))]
 random.shuffle(words_idxs)
-samples_size = int(len(words_idxs) * training_fraction)
-words_training = words_data[words_idxs[0:samples_size]]
-words_training_classes = words_classes[words_idxs[0:samples_size]]
-words_test = words_data[words_idxs[samples_size - 1:len(words_data)]]
-words_test_classes = words_classes[words_idxs[samples_size - 1:len(words_data)]]
+training_size = int(len(words_idxs) * training_fraction)
+words_training = words_data[words_idxs[0:training_size]]
+words_training_classes = words_classes[words_idxs[0:training_size]]
+words_test = words_data[words_idxs[training_size - 1:len(words_data)]]
+words_test_classes = words_classes[words_idxs[training_size - 1:len(words_data)]]
+
+print(f"Entire  dataset size: {len(words_data)}")
+print(f"Training set size: {training_size}")
+print(f"Test set size: {len(words_data) - training_size}")
 
 # def point_b()
 words_vectorizer = CountVectorizer(analyzer="char", ngram_range=(1, 1))
 # words_data = [re.sub(r'(.)', r'\1 ', word) for word in words_data]
 words_term_document = words_vectorizer.fit_transform(words_training)
 feature_names = words_vectorizer.get_feature_names()
-print(feature_names)
-print(len(feature_names))
-print(words_term_document.toarray())
+print("n-grams features:")
+print(f"Size: {len(feature_names)}")
+print(f"Features:\n{feature_names}")
 
 
 def cosine_kernel(word_one, word_two, vectorizer=words_vectorizer):
@@ -57,10 +61,37 @@ def chi_square_kernel(word_one, word_two, vectorizer=words_vectorizer):
 
 
 def ssk_kernel(word_one, word_two, vectorizer=words_vectorizer):
-    word_one_terms, word_two_terms = tuple(vectorizer.transform([word_one, word_two]).toarray())
-    return chi2_kernel([word_one_terms], [word_two_terms])[0][0]
+    max_substring = vectorizer.ngram_range[1]
+    return ssk(word_one, word_two, max_substring, .5, accum=True)
 
 
+# point b.i
+print("\nComparing kernel result for words [gato, perro] (1), [gato, gatto] (2), and [gato, gata](3)\n")
+print("\ncosine_kernel")
+print(f'1. {cosine_kernel("gato", "perro")}')
+print(f'2. {cosine_kernel("gato", "gatto")}')
+print(f'3. {cosine_kernel("gato", "gata")}')
+
+# point b.ii
+print("\nintersection_kernel")
+print(f'1. {intersection_kernel("gato", "perro")}')
+print(f'2. {intersection_kernel("gato", "gatto")}')
+print(f'3. {intersection_kernel("gato", "gata")}')
+
+# point b.iii
+print("\nchi_square_kernel")
+print(f'1. {chi_square_kernel("gato", "perro")}')
+print(f'2. {chi_square_kernel("gato", "gatto")}')
+print(f'3. {chi_square_kernel("gato", "gata")}')
+
+# point b.iv
+print("\nssk_kernel")
+print(f'1. {chi_square_kernel("gato", "perro")}')
+print(f'2. {chi_square_kernel("gato", "gatto")}')
+print(f'3. {chi_square_kernel("gato", "gata")}')
+
+
+# def point_c()
 def make_training_kernel_matrix(kernel, training_data, vectorizer=words_vectorizer):
     kernel_matrix = np.zeros((len(training_data), len(training_data)))
     for idx, data_col in enumerate(training_data):
@@ -81,35 +112,15 @@ def make_kernel_matrix(kernel, test_data, training_data, vectorizer=words_vector
     return kernel_matrix
 
 
-# point b.i
-print("\ncosine_kernel")
-print(cosine_kernel("gato", "perro"))
-print(cosine_kernel("gato", "gatto"))
-print(cosine_kernel("gato", "gata"))
-
-# point b.ii
-print("\nintersection_kernel")
-print(intersection_kernel("gato", "perro"))
-print(intersection_kernel("gato", "gatto"))
-print(intersection_kernel("gato", "gata"))
-
-# point b.iii
-print("\nchi_square_kernel")
-print(chi_square_kernel("gato", "perro"))
-print(chi_square_kernel("gato", "gatto"))
-print(chi_square_kernel("gato", "gata"))
-
-
-# point b.iv
-
-
-# def point_c()
 def cross_validation_scores(ngram_maxs, kernels, complexities):
     scores = np.zeros((len(ngram_maxs), len(kernels), len(complexities), 2))
     for idx, ngram_max in enumerate(ngram_maxs):
         vectorizer = CountVectorizer(analyzer="char", ngram_range=(1, ngram_max))
         vectorizer.fit(words_training)
-        print(f"Number of features: {len(vectorizer.get_feature_names())}")
+        features = vectorizer.get_feature_names()
+        print(f"n-gram: (1,{ngram_max})")
+        print(f"Number of features: {len(features)}")
+        print(f"Features:\n{features}")
         scores[idx] = [cross_validation_complexities(vectorizer, kernel, complexities) for kernel in kernels]
     return scores
 
@@ -117,6 +128,10 @@ def cross_validation_scores(ngram_maxs, kernels, complexities):
 def cross_validation_complexities(vectorizer, kernel, complexities):
     kernel_training = make_training_kernel_matrix(kernel, words_training, vectorizer)
     kernel_test = make_kernel_matrix(kernel, words_test, words_training, vectorizer)
+    return cross_validation_complexities_precomputed(kernel_training, kernel_test, complexities)
+
+
+def cross_validation_complexities_precomputed(kernel_training, kernel_test, complexities):
     scores = np.zeros((len(complexities), 2))
     for idx, complexity in enumerate(complexities):
         svm = SVC(kernel='precomputed', C=complexity)
@@ -149,6 +164,17 @@ kernel_names = ['cosine_kernel', 'intersection_kernel', 'chi_square_kernel']
 complexities = [2 ** -15, 2 ** -10, 2 ** -5, 2, 2 ** 5]
 cross_validation = cross_validation_scores(ngram_maxs, kernels, complexities)
 
+# FOR SSK
+decay = 0.5
+max_substrings = [1, 2, 3]
+cross_validation_ssk = np.zeros((len(max_substrings),len(complexities),2))
+words_training_t = np.transpose([words_training])
+words_test_t = np.transpose([words_test])
+for idx, max_substring in enumerate(max_substrings):
+    kernel_training = string_kernel(words_training_t, words_training_t, max_substring, decay)
+    kernel_test = string_kernel(words_test_t,words_training_t, max_substring, decay)
+    cross_validation_ssk[idx] = cross_validation_complexities_precomputed(kernel_training, kernel_test, complexities)
+
 
 # def point_d()
 class ListTable(list):
@@ -173,14 +199,31 @@ scores_table.append(['Kernel', 'Regulation parameter', 'Max. n-gram', 'Score tra
 for n, ngram in enumerate(cross_validation):
     for k, kernel in enumerate(ngram):
         for c, complexity_scores in enumerate(kernel):
-            scores_table.append([kernel_names[k], f"2^{np.log2(complexities[c])}", ngram_maxs[n], complexity_scores[0], complexity_scores[1]])
+            scores_table.append([kernel_names[k], f"2^{int(np.log2(complexities[c]))}", ngram_maxs[n], f"{complexity_scores[0] * 100:.2f}%", f"{complexity_scores[1] * 100:.2f}%"])
+
+for n, max_substring in enumerate(cross_validation_ssk):
+    for c, complexity_scores in enumerate(max_substring):
+        scores_table.append(['ssk_kernel', f"2^{int(np.log2(complexities[c]))}", max_substrings[n], f"{complexity_scores[0] * 100:.2f}%", f"{complexity_scores[1] * 100:.2f}%"])
+
+print("Table 3.d.i.")
 print(scores_table)
 
 # point d.ii
 misclassification_table = ListTable()
-misclassification_table.append(['Word', 'Language', 'Frequency'])
-for word, freq in misclassified_words.items():
-    misclassification_table.append([word, 'ES' if word in spanish_words else 'FR', freq])
+misclassification_table.append(['#', 'Word', 'Language', 'Misclassifications'])
+misclassified_top = sorted(misclassified_words, key=misclassified_words.get, reverse=True)[0:40]
+for word in misclassified_top:
+    misclassification_table.append([len(misclassification_table), word, 'ES' if word in spanish_words else 'FR', misclassified_words[word]])
+print("Table 3.d.ii.a.")
 print(misclassification_table)
+
+french_mc = np.sum([misclassified_words[key] for key in misclassified_words if key in french_words])
+spanish_mc = np.sum([misclassified_words[key] for key in misclassified_words if key in spanish_words])
+miscl_by_lang_table = ListTable()
+miscl_by_lang_table.append(['Language', 'Total misclassifications', 'Porcentual misclassifications'])
+miscl_by_lang_table.append(['Spanish', spanish_mc, f"{spanish_mc / (spanish_mc + french_mc) * 100:.2f}%"])
+miscl_by_lang_table.append(['French', french_mc, f"{french_mc / (spanish_mc + french_mc) * 100:.2f}%"])
+print("Table 3.d.ii.b.")
+print(miscl_by_lang_table)
 
 print('done')
