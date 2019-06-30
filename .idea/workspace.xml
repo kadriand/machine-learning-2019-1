@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79ae957f-0dd3-41ee-932b-2c86ff280519" name="Default" comment="Assignment 3 point 3">
-      <change beforePath="$PROJECT_DIR$/assignment3/.ipynb_checkpoints/ml-assign3-karodriguezr-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/assignment3/.ipynb_checkpoints/ml-assign3-karodriguezr-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignment3/ml-assign3-karodriguezr.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/assignment3/ml-assign3-karodriguezr.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignment3/point_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignment3/point_3.py" afterDir="false" />
     </list>
     <ignored path="ideaP.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,7 +42,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment3/point_1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17">
+            <state relative-caret-position="34">
               <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
@@ -53,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment3/point_2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1572">
+            <state relative-caret-position="2516">
               <caret line="152" column="9" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
             </state>
           </provider>
@@ -62,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assignment3/point_3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
+            <state relative-caret-position="119">
+              <caret line="163" column="55" lean-forward="true" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -74,7 +72,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment3/spanish_words_500.data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
+            <state relative-caret-position="6698">
               <caret line="394" column="9" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
             </state>
           </provider>
@@ -83,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assignment3/french_words_500.data">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
+            <state relative-caret-position="6545">
               <caret line="385" column="7" selection-start-line="385" selection-start-column="7" selection-end-line="385" selection-end-column="7" />
             </state>
           </provider>
@@ -192,6 +190,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -201,19 +201,12 @@
             </path>
             <path>
               <item name="ideaP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ideaP" type="462c0819:PsiDirectoryNode" />
-              <item name="assignment3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ideaP" type="b2602c69:ProjectViewProjectNode" />
               <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -222,7 +215,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assignment3" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../UNAL-Machine-learning" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -510,6 +503,9 @@
       <module name="ideaP" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assignment3/ssk" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -593,6 +589,7 @@
       <workItem from="1557185642508" duration="9573000" />
       <workItem from="1558572091547" duration="4000" />
       <workItem from="1558572554182" duration="104837000" />
+      <workItem from="1561935115375" duration="237000" />
     </task>
     <task id="LOCAL-00001" summary="Assignment 1 + Assignment 2">
       <created>1557194768070</created>
@@ -626,7 +623,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="226712000" />
+    <option name="totallyTimeSpent" value="226949000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -639,9 +636,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="239" y="1112" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16792738" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17019667" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -1760,32 +1756,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment3/ssk/string_kernel.pyx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/python37/Lib/site-packages/pyximport/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment3/ssk/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="13" selection-start-column="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment3/ssk/string_kernel.pyx" />
+    <entry file="file://C:/python37/Lib/site-packages/pyximport/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/assignment3/ssk/main.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/site-packages/sklearn/feature_extraction/text.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-174">
@@ -1821,38 +1794,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignment3/french_words_500.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="385" column="7" selection-start-line="385" selection-start-column="7" selection-end-line="385" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignment3/spanish_words_500.data">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="394" column="9" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignment3/point_1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
+        <state relative-caret-position="34">
           <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignment3/point_2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1572">
+        <state relative-caret-position="2516">
           <caret line="152" column="9" selection-start-line="152" selection-start-column="9" selection-end-line="152" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment3/spanish_words_500.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6698">
+          <caret line="394" column="9" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignment3/french_words_500.data">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6545">
+          <caret line="385" column="7" selection-start-line="385" selection-start-column="7" selection-end-line="385" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignment3/point_3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="162" column="56" selection-start-line="162" selection-start-column="56" selection-end-line="162" selection-end-column="56" />
+        <state relative-caret-position="119">
+          <caret line="163" column="55" lean-forward="true" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

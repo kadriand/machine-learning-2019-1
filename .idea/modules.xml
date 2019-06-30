@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../UNAL-Machine-learning/UNAL-Machine-learning.iml" filepath="$PROJECT_DIR$/../UNAL-Machine-learning/UNAL-Machine-learning.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/ideaP.iml" filepath="$PROJECT_DIR$/.idea/ideaP.iml" />
     </modules>
   </component>
