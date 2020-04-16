@@ -1,4 +1,4 @@
-*.pkl
+*.large.pkl
 *.fams
 *.seq
 idea/**
